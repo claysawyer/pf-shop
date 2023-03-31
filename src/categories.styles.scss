@@ -1,0 +1,15 @@
+.categories-container {
+  background-color: red;
+  padding: 10x;
+
+  .category-container {
+    background-color: green;
+    padding: 20x;
+
+    .category-body-container {
+      background-color: blue;
+      padding: 30px
+    }
+  }
+}
+

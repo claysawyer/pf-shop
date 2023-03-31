@@ -2,8 +2,12 @@
 
 # dependencies
 /node_modules
+/.yarn
 /.pnp
 .pnp.js
+.pnp.cjs
+.pnp.loader.mjs
+
 
 # testing
 /coverage
