@@ -70,7 +70,7 @@ const SignUpForm = () => {
           type="email"
           required
           name="email"
-          id="email"
+          id="sign-up-email"
           value={formFields.email}
           onChange={handleChange}
         />
@@ -80,7 +80,7 @@ const SignUpForm = () => {
           type="password"
           required
           name="password"
-          id="password"
+          id="sign-up-password"
           value={formFields.password}
           onChange={handleChange}
         />
