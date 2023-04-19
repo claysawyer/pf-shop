@@ -14,9 +14,11 @@ import {
   getFirestore,
   doc,
   getDoc,
+  getDocs,
   setDoc,
   collection,
   writeBatch,
+  query,
 } from "firebase/firestore";
 
 // Firebase configuration object
@@ -73,6 +75,30 @@ export const addCollectionAndDocuments = async (
   // Commit the batch to the firestore database
   await batch.commit();
   console.log("done");
+};
+
+// Retrieve all the documents from the 'categories' collection in the db
+export const getCategoriesAndDocuments = async () => {
+  // Reference to the 'categories' collection in the db
+  const collectionRef = collection(db, "categories");
+
+  // Query to retrieve all documents in the collection
+  const q = query(collectionRef);
+
+  // Retrieve docs and wait for the result
+  const querySnapshot = await getDocs(q);
+
+  // Create a map of category names to their respective items using the query results
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    // Extract the 'title' and 'items' fields from the document data
+    const { title, items } = docSnapshot.data();
+    // Add an entry to the map where the key is the title and the value is the items array
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
+
+  // Return the final categoryMap
+  return categoryMap;
 };
 
 // Function to create a user document in the users collection when a user logs in
