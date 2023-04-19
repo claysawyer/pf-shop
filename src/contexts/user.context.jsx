@@ -1,42 +1,58 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useReducer } from "react";
+
+import { createAction } from "../utils/reducer/reducer.utils";
 
 import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
 } from "../utils/firebase/firebase.utils";
 
-// Creating a context with a default value
 export const UserContext = createContext({
-  currentUser: null,
   setCurrentUser: () => null,
+  currentUser: null,
 });
 
-// Creating a UserProvider component
-export const UserProvider = (props) => {
-  // Initializing state for currentUser and setCurrentUser with null value
-  const [currentUser, setCurrentUser] = useState(null);
+export const USER_ACTION_TYPES = {
+  SET_CURRENT_USER: "SET_CURRENT_USER",
+};
 
-  // Creating a value object containing currentUser and setCurrentUser
-  const value = { currentUser, setCurrentUser };
+const INITIAL_STATE = {
+  currentUser: null,
+};
 
-  // Using useEffect to listen to user authentication changes
+const userReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case USER_ACTION_TYPES.SET_CURRENT_USER:
+      return { ...state, currentUser: payload };
+    default:
+      throw new Error(`Unhandled type ${type} in userReducer`);
+  }
+};
+
+export const UserProvider = ({ children }) => {
+  const [{ currentUser }, dispatch] = useReducer(userReducer, INITIAL_STATE);
+
+  const setCurrentUser = (user) =>
+    dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
+
   useEffect(() => {
-    // Initializing an unsubscribe function to remove the listener when the component unmounts
     const unsubscribe = onAuthStateChangedListener((user) => {
-      // If the user is authenticated, create a document for them in the database
       if (user) {
         createUserDocumentFromAuth(user);
       }
-      // Set the currentUser state to the authenticated user or null if not authenticated
       setCurrentUser(user);
     });
 
-    // Returning the unsubscribe function to remove the listener when the component unmounts
     return unsubscribe;
   }, []);
 
-  // Rendering the UserContext Provider with the value object and the props' children
-  return (
-    <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
-  );
+  console.log(currentUser);
+
+  const value = {
+    currentUser,
+  };
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
