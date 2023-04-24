@@ -7,8 +7,6 @@ pf-shop is an ecommerce website built with TypeScript, React, Redux, Redux Thunk
 - Browse and purchase products
 - Search products by name, description, or tags
 - Add items to a cart and checkout
-- View order history and status
-- Admin dashboard for managing products, orders, and customers
 - Authentication and authorization for users and admin
 
 ## Installation
@@ -44,4 +42,4 @@ npm start
 
 ## Contributions
 
-While contributions are welcome, this is strictly a simple technology showcase for a developer portfolio.
+While contributions are welcome, this is strictly a  technology showcase for a developer portfolio.
