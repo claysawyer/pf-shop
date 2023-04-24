@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import ProductCard from "../../components/product-card/product-card.component";
 
-import { selectCategoriesMap } from "../../store/categories/categories.selector";
+import { selectCategoriesMap } from "../../store/categories/category.selector";
 
 import { CategoryContainer, Title } from "./category.styles";
 
