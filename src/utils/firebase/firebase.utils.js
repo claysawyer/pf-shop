@@ -22,12 +22,13 @@ import {
 
 // Firebase configuration object
 const firebaseConfig = {
-  apiKey: "AIzaSyCN1D_tid9Bm_8HIIMhKUSyAYLlcahUeT4",
-  authDomain: "pf-shop-db.firebaseapp.com",
-  projectId: "pf-shop-db",
-  storageBucket: "pf-shop-db.appspot.com",
-  messagingSenderId: "559665893431",
-  appId: "1:559665893431:web:2fbabf1aa0b9f012462fb2",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
